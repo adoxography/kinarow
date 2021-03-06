@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-in-a-row</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/index.js"></script>
+</head>
+<body>
+  <form
+    class="controls"
+    x-data="Control()"
+    x-cloak
+    x-init="
+      $watch('width', () => update());
+      $watch('height', () => update());
+      $watch('k', () => update());
+    "
+    :class="{ 'controls--hidden': state === State.PLAY }"
+    @submit.prevent="start"
+    @gameover.window="state = State.SETUP"
+  >
+    <div class="field">
+      <input
+        class="field__input field__input--number"
+        :disabled="state !== State.SETUP"
+        x-model.number="width"
+        @focus="$event.target.select()"
+      >
+      <span>x</span>
+      <input
+        class="field__input field__input--number"
+        :disabled="state !== State.SETUP"
+        x-model.number="height"
+        @focus="$event.target.select()"
+      >
+    </div>
+
+    <div class="field">
+      <input
+        class="field__input field__input--number"
+        x-model.number="k"
+        :disabled="state !== State.SETUP"
+        @focus="$event.target.select()"
+      > to win
+    </div>
+
+    <div>
+      <template x-for="(agent, agentIndex) in agents" :key="agentIndex">
+        <div class="field">
+          <input
+            type="text"
+            class="field__input field__input--url"
+            :placeholder="`Player ${agentIndex+1}`"
+            :value="agent.url"
+            @change="agent.url = $event.target.value; agent.ready = false;"
+          >
+          <div class="field__spinner">
+            <div x-show="state === State.WAIT && !agent.ready">
+              <div class="double-bounce1"></div>
+              <div class="double-bounce2"></div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div class="center">
+      <button
+        class="btn"
+        type="submit"
+        :disabled="state !== State.SETUP"
+      >
+        Start
+      </button>
+    </div>
+  </form>
+
+  <div
+    id="game"
+    class="game-container"
+    x-data="Game()"
+    x-cloak
+    @updategame.window="update($event.detail.width, $event.detail.height, $event.detail.k)"
+    @startgame.window="start($event.detail.agents)"
+  >
+    <div
+      class="board"
+      :class="{ 'board--started': state === State.PLAY || state == State.WAIT }"
+      :style="`--columns: ${board.width}; --rows: ${board.height};`"
+    >
+      <template
+        x-for="(cell, index) in board.cells"
+        :key="index"
+      >
+        <div
+          class="board__cell"
+          :class="{
+            'board__cell--empty': cell === null,
+            'board__cell--active': state === State.PLAY && cell === null,
+            'board__cell--p1': cell === 0,
+            'board__cell--p2': cell === 1
+          }"
+          @click="handleCellClicked(index)"
+          :x-ref="`cell-${index}`"
+        ></div>
+      </template>
+    </div>
+  </div>
+
+  <div
+    x-data="{ message: '', show: false }"
+    x-cloak
+    class="notification"
+    :class="{ 'notification--hidden': !show }"
+    @flash.window="
+      message = $event.detail.message;
+      show = true;
+      setTimeout(() => { show = false; }, $event.detail.time);
+    "
+  >
+    <p x-text="message"></p>
+  </div>
+</body>
+</html>
+
