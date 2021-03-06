@@ -139,6 +139,13 @@ p {
 .field__input--number {
   font-size: 1.5rem;
   width: 2em;
+  -moz-appearance: textfield;
+}
+
+.field__input--number::-webkit-outer-spin-button,
+.field__input--number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .field__spinner {
@@ -158,11 +165,19 @@ p {
 }
 
 .board {
+  --cell-size: 3em;
+
   display: grid;
-  grid-template-columns: repeat(var(--columns), minmax(0, 6rem));
-  grid-template-rows: repeat(var(--rows), minmax(0, 6rem));
+  grid-template-columns: repeat(var(--columns), minmax(0, var(--cell-size)));
+  grid-template-rows: repeat(var(--rows), minmax(0, var(--cell-size)));
   grid-gap: 1rem;
   align-self: center;
+}
+
+@media only screen and (min-width: 375px) {
+  .board {
+    --cell-size: 4em;
+  }
 }
 
 .board__cell {
