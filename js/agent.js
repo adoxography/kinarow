@@ -2,8 +2,8 @@ const Agent = (url = '') => ({
   url,
   ready: false,
 
-  setUrl(url) {
-    this.url = url;
+  setUrl(newUrl) {
+    this.url = newUrl;
     this.ready = false;
   },
 
@@ -24,7 +24,7 @@ const Agent = (url = '') => ({
       try {
         const response = await fetch(`${this.cleanUrl}/status`);
         if (response.status !== 200) {
-          throw 'Bad status';
+          throw new Error('Bad status');
         }
       } catch (e) {
         throw new Error(`Could not connect to ${this.url}`);
@@ -40,7 +40,7 @@ const Agent = (url = '') => ({
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(params)  
+      body: JSON.stringify(params)
     });
 
     const text = await response.text();

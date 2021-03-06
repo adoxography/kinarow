@@ -117,7 +117,7 @@ window.Game = () => ({
       // Artificially insert a time delay if the move comes back
       // immediately so the bot feels like a person
       setTimeout(() => {
-        this.makeMove(parseInt(move));
+        this.makeMove(+move);
       }, moveTime - Date.now());
     }
   },
@@ -154,8 +154,8 @@ window.Game = () => ({
     const lines = this.board.lines();
 
     for (const line of lines) {
-      for (let i = 0; i < line.length - this.k + 1; i++) {
-        const slice = line.slice(i, i + this.k);
+      for (let x = 0; x < line.length - this.k + 1; x += 1) {
+        const slice = line.slice(x, x + this.k);
 
         const unique = slice.filter((v, i, s) => s.indexOf(v) === i);
         if (unique.length === 1 && unique[0] !== null) {
@@ -174,7 +174,7 @@ window.Game = () => ({
   reset() {
     this.board.reset();
     this.turn = 0;
-    
+
     for (const agent of this.agents) {
       agent.ready = false;
     }

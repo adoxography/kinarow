@@ -1,5 +1,39 @@
 import { range, rangeRight } from 'lodash';
 
+const generateLineIndices = (width, height) => {
+  const min = Math.min(width, height);
+  const hExtra = Math.min(0, height - width);
+  const wExtra = Math.min(0, width - height);
+
+  return [
+    // Rows
+    ...range(height).map(y => range(width).map(x => y * width + x)),
+
+    // Columns
+    ...range(width).map(x => range(height).map(y => y * width + x)),
+
+    // TL to BR diagonals starting in the top row
+    ...range(width)
+      .map(xOffset => range(min - Math.max(0, xOffset + hExtra))
+        .map(y => xOffset + (y * (width + 1)))),
+
+    // TR to BL diagonals starting in the top row
+    ...rangeRight(width)
+      .map((xOffset, i) => range(min - Math.max(0, i + hExtra))
+        .map(y => xOffset + (y * (width - 1)))),
+
+    // TL to BR diagonals starting in the left column
+    ...range(1, height)
+      .map(yOffset => range(min - Math.max(-1, yOffset + wExtra))
+        .map(x => yOffset * width + x * (width + 1))),
+
+    // TR to BL diagonals starting in the right column
+    ...range(1, height)
+      .map(yOffset => range(min - Math.max(-1, yOffset + wExtra))
+        .map(x => (yOffset + 1) * width - 1 + x * (width - 1)))
+  ];
+};
+
 const Board = (width, height) => ({
   width,
   height,
@@ -38,49 +72,5 @@ const Board = (width, height) => ({
     this.cells[this.getCellIndex(x, y)] = value;
   }
 });
-
-const generateLineIndices = (width, height) => {
-  const min = Math.min(width, height);
-
-  return [
-    // Rows
-    ...range(height).map(y => {
-      return range(width).map(x => y * width + x);
-    }),
-
-    // Columns
-    ...range(width).map(x => {
-      return range(height).map(y => y * width + x);
-    }),
-
-    // TL to BR diagonals starting in the top row
-    ...range(width).map(xOffset => {
-      return range(min - Math.max(0, xOffset + Math.min(0, height - width))).map(y => {
-        return xOffset + (y * (width + 1));
-      });
-    }),
-
-    // TR to BL diagonals starting in the top row
-    ...rangeRight(width).map((xOffset, i) => {
-      return range(min - Math.max(0, i + Math.min(0, height - width))).map(y => {
-        return xOffset + (y * (width - 1));
-      });
-    }),
-
-    // TL to BR diagonals starting in the left column
-    ...range(1, height).map(yOffset => {
-      return range(min - Math.max(-1, yOffset + Math.min(0, width - height))).map(x => {
-        return yOffset * width + x * (width + 1);
-      });
-    }),
-
-    // TR to BL diagonals starting in the right column
-    ...range(1, height).map(yOffset => {
-      return range(min - Math.max(-1, yOffset + Math.min(0, width - height))).map(x => {
-        return (yOffset + 1) * width - 1 + x * (width - 1);
-      });
-    })
-  ];
-};
 
 export default Board;
