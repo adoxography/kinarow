@@ -9,6 +9,20 @@
   <script src="js/index.js"></script>
 </head>
 <body>
+  <div
+    class="links-container"
+    :class="{ 'links-container--hidden': !show }"
+    x-data="{ show: true }"
+    @startgame.window="show = false"
+    @gameover.window="show = true"
+  >
+    <a class="link" href="https://github.com/adoxography/kinarow">
+      <svg class="link__icon">
+        <use href="img/github.svg" />
+      </svg>
+    </a>
+  </div>
+
   <form
     class="controls"
     x-data="Control()"

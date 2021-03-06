@@ -65,6 +65,33 @@ p {
   transform: translate(-50%, -100%);
 }
 
+.links-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  padding: 0.5em;
+  transform: translateX(0%);
+  transition: transform 150ms ease-in-out;
+}
+
+.links-container--hidden {
+  transform: translateX(100%);
+}
+
+.link__icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: var(--clr-black);
+  opacity: 0.9;
+  transition: opacity 150ms ease-in-out;
+}
+
+.link:hover .link__icon {
+  opacity: 0.6;
+}
+
 .notification {
   --radius: 1rem;
 
