@@ -1,6 +1,9 @@
 # K-in-a-Row
 This is an implementation of an [m, n, k-game](https://en.wikipedia.org/wiki/M,n,k-game) that exposes an interface for user-created bot players.
 
+## How to play
+Just set a width, height, and number to win, and hit start! If you would like to play against a bot, put their URL into the **Player 1** or **Player 2** fields. (More on bots below.) If you'd rather play against yourself or someone next to you, just leave those fields blank.
+
 ## Creating a bot player
 A bot needs to exist as a publicly available web server that responds to two routes, `/status` and `/move`. An example bot built on [REPL.it](https://repl.it) using node/express can be found [here](https://repl.it/@adoxography/KIRA).
 
