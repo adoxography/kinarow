@@ -1,6 +1,7 @@
 {
   "name": "kinarow",
   "version": "1.0.0",
+  "homepage": "https://adoxography.github.io/kinarow",
   "main": "index.html",
   "license": "MIT",
   "scripts": {
