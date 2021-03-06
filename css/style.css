@@ -38,6 +38,7 @@ body {
   color: var(--clr-black);
   font-size: 24px;
   background-color: var(--clr-white);
+  overflow-x: hidden;
 }
 
 p {
@@ -66,7 +67,7 @@ p {
 }
 
 .links-container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   z-index: 10;
