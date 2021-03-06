@@ -143,6 +143,7 @@ p {
   box-shadow: none;
   transition:background-color 150ms ease-in-out, box-shadow 150ms ease-in-out, transform 300ms ease-in-out;
   transform: scale(1);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .board__cell--enter {
@@ -201,6 +202,7 @@ p {
   opacity: 1.0;
   padding: 0.25em 0.75em;
   transform: scale(1);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn:disabled,
