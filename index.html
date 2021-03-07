@@ -46,8 +46,15 @@
         @focus="$event.target.select()"
       >
       <div class="field__arrows">
-        <span @click="width++" class="arrow arrow--up"></span>
-        <span @click="width--" class="arrow arrow--down"></span>
+        <span
+          @click="width++"
+          class="arrow arrow--up"
+        ></span>
+        <span
+          @click="width--"
+          class="arrow arrow--down"
+          :disabled="width <= 3"
+        ></span>
       </div>
       <span class="field__filltext">x</span>
       <input
@@ -58,8 +65,15 @@
         @focus="$event.target.select()"
       >
       <div class="field__arrows">
-        <span @click="height++" class="arrow arrow--up"></span>
-        <span @click="height--" class="arrow arrow--down"></span>
+        <span
+          @click="height++"
+          class="arrow arrow--up"
+        ></span>
+        <span
+          @click="height--"
+          class="arrow arrow--down"
+          :disabled="height <= 3"
+        ></span>
       </div>
     </div>
 
@@ -72,8 +86,16 @@
         @focus="$event.target.select()"
       >
       <div class="field__arrows">
-        <span @click="k++" class="arrow arrow--up"></span>
-        <span @click="k--" class="arrow arrow--down"></span>
+        <span
+          @click="k++"
+          class="arrow arrow--up"
+          :disabled="k >= Math.max(width, height)"
+        ></span>
+        <span
+          @click="k--"
+          class="arrow arrow--down"
+          :disabled="k <= 3"
+        ></span>
       </div>
       <span class="field__filltext">
         to win

@@ -64,6 +64,10 @@ window.Control = () => ({
   },
 
   update() {
+    this.width = Math.max(3, this.width);
+    this.height = Math.max(3, this.height);
+    this.k = Math.max(3, Math.min(this.k, Math.max(this.width, this.height)));
+
     fireUpdateGame({
       width: this.width,
       height: this.height,

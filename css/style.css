@@ -166,6 +166,7 @@ p {
 
 .arrow {
   --size: 0.3em;
+  --color: var(--clr-black);
 
   position: absolute;
   display: block;
@@ -178,18 +179,26 @@ p {
   opacity: 0.3;
 }
 
+.arrow[disabled],
+.arrow[disabled]:hover {
+  --color: var(--clr-gray-dark);
+
+  cursor: default;
+  opacity: 0.5;
+}
+
 .arrow--up {
   top: 0;
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
-  border-bottom: var(--size) solid var(--clr-black);
+  border-bottom: var(--size) solid var(--color);
 }
 
 .arrow--down {
   bottom: 0;
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
-  border-top: var(--size) solid var(--clr-black);
+  border-top: var(--size) solid var(--color);
 }
 
 .game-container {
