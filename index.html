@@ -75,10 +75,7 @@
             @change="agent.url = $event.target.value; agent.ready = false;"
           >
           <div class="field__spinner">
-            <div x-show="state === State.WAIT && !agent.ready">
-              <div class="double-bounce1"></div>
-              <div class="double-bounce2"></div>
-            </div>
+            <div class="loader" x-show="state === State.WAIT && !agent.ready"></div>
           </div>
         </div>
       </template>
