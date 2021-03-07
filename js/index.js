@@ -48,6 +48,7 @@ window.Control = () => ({
   height: 3,
   k: 3,
   agents: [Agent(), Agent()],
+  showAgents: false,
 
   async start() {
     this.state = State.WAIT;
@@ -61,6 +62,11 @@ window.Control = () => ({
       this.agents.map(agent => agent.reset());
       this.state = State.SETUP;
     }
+  },
+
+  appear() {
+    this.showAgents = this.agents.some(agent => !agent.isHuman());
+    this.state = State.SETUP;
   },
 
   update() {

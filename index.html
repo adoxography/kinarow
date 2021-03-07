@@ -35,9 +35,9 @@
     "
     :class="{ 'controls--hidden': state === State.PLAY }"
     @submit.prevent="start"
-    @gameover.window="state = State.SETUP"
+    @gameover.window="appear"
   >
-    <div class="field">
+    <div class="field field--lg">
       <input
         type="number"
         class="field__input field__input--number"
@@ -77,7 +77,7 @@
       </div>
     </div>
 
-    <div class="field">
+    <div class="field field--lg">
       <input
         type="number"
         class="field__input field__input--number"
@@ -103,25 +103,44 @@
     </div>
 
     <div>
-      <template x-for="(agent, agentIndex) in agents" :key="agentIndex">
-        <div class="field">
-          <input
-            type="text"
-            class="field__input field__input--url"
-            :placeholder="`Player ${agentIndex+1}`"
-            :value="agent.url"
-            @change="agent.url = $event.target.value; agent.ready = false;"
-          >
-          <div class="field__spinner">
-            <div class="loader" x-show="state === State.WAIT && !agent.ready"></div>
+      <p class="drawer-control" :class="{'drawer-control--open': showAgents}">
+        <button
+          type="button"
+          class="drawer-control__btn btn btn--settings"
+          @click="showAgents = !showAgents"
+        >
+          More settings
+          <span class="drawer-control__arrow"></span>
+        </button>
+      </p>
+
+      <div
+        class="drawer"
+        :class="{'drawer--closed': !showAgents}"
+      >
+        <template
+          x-for="(agent, agentIndex) in agents"
+          :key="agentIndex"
+        >
+          <div class="field">
+            <input
+              type="text"
+              class="field__input field__input--url"
+              :placeholder="`Player ${agentIndex+1} URL`"
+              :value="agent.url"
+              @change="agent.url = $event.target.value; agent.ready = false;"
+            >
+            <div class="field__spinner">
+              <div class="loader" x-show="state === State.WAIT && !agent.ready"></div>
+            </div>
           </div>
-        </div>
-      </template>
+        </template>
+      </div>
     </div>
 
     <div class="center">
       <button
-        class="btn"
+        class="btn btn--start"
         type="submit"
         :disabled="state !== State.SETUP"
       >

@@ -115,12 +115,16 @@ p {
 .field {
   display: flex;
   align-items: baseline;
-  margin-bottom: 0.75em;
   margin-left: 1em;
 }
 
+.field--lg {
+  margin-bottom: 0.75em;
+}
+
 .field__filltext {
-  margin: 0 0.6em;
+  margin-left: 0.6em;
+  margin-right: 0.3em;
 }
 
 .field__input {
@@ -147,6 +151,11 @@ p {
 .field__input--number::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.field__input--url {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }
 
 .field__spinner {
@@ -279,15 +288,17 @@ p {
 }
 
 .btn {
-  color: #fffe;
-  font-size: 1.5rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
   display: inline-block;
-  border-radius: 0.5rem;
   border: none;
   cursor: pointer;
-  transition: transform 0.25s ease-in-out;
+  padding: 0.25em 0.75em;
+}
+
+.btn--start {
+  color: #fffe;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
   background-image: linear-gradient(
     105deg,
     var(--clr-secondary),
@@ -299,11 +310,19 @@ p {
   );
   background-size: 600%;
   background-position: 25%;
-  opacity: 1.0;
-  margin-top: 1rem;
-  padding: 0.25em 0.75em;
-  transform: scale(1);
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s ease-in-out;
+  transform: scale(1);
+  margin-top: 2rem;
+  border-radius: 0.5rem;
+}
+
+.btn--settings {
+  background-color: transparent;
+  font-size: 0.675rem;
+  letter-spacing: 1.125px;
+  margin-right: 0.5em;
+  opacity: 0.9;
 }
 
 .btn:disabled,
@@ -315,13 +334,21 @@ p {
 .btn:hover,
 .btn:focus {
   outline: none;
+}
 
+.btn--start:hover,
+.btn--start:focus {
   transform: scale(1.1);
 
   animation-name: slide;
   animation-iteration-count: infinite;
   animation-duration: 2s;
   animation-timing-function: linear;
+}
+
+.btn--settings:hover,
+.btn--settings:focus {
+  opacity: 0.7;
 }
 
 @keyframes slide {
@@ -352,6 +379,43 @@ p {
     transform: scale(1.1);
     filter: brightness(1.05);
   }
+}
+
+.drawer-control {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer-control__btn {
+  display: flex;
+  align-items: center;
+}
+
+.drawer-control__arrow {
+  --size: 0.5em;
+
+  height: 0;
+  width: 0;
+  margin-left: 0.25em;
+  display: inline-block;
+  border-top: var(--size) solid transparent;
+  border-bottom: var(--size) solid transparent;
+  border-right: var(--size) solid var(--clr-black);
+  transition: transform 300ms ease-in-out;
+}
+
+.drawer-control--open .drawer-control__arrow {
+  transform: rotate(-90deg);
+}
+
+.drawer {
+  height: 4rem;
+  transition: height 300ms ease-in-out;
+  overflow-y: hidden;
+}
+
+.drawer--closed {
+  height: 0;
 }
 
 /**
