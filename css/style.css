@@ -162,7 +162,10 @@ p {
 }
 
 .board {
-  --cell-size: 3em;
+  --max-cell-size: 3em;
+  --cell-width: min(calc(100vw / var(--columns) - 1em), var(--max-cell-size));
+  --cell-height: min(calc(100vh / var(--rows) - 1em), var(--max-cell-size));
+  --cell-size: min(var(--cell-width), var(--cell-height));
 
   display: grid;
   grid-template-columns: repeat(var(--columns), minmax(0, var(--cell-size)));
@@ -173,7 +176,7 @@ p {
 
 @media only screen and (min-width: 375px) {
   .board {
-    --cell-size: 4em;
+    --max-cell-size: 4em;
   }
 }
 
