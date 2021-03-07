@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install packages
-        run: yarn install
+        run: yarn install --immutable
       - name: Build application
         run: yarn build --public-url /kinarow
       - name: Deploy to gh-pages
