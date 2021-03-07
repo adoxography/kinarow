@@ -144,9 +144,13 @@ window.Game = () => ({
     if (winner === null) {
       this.getMove();
     } else {
-      this.state = State.SETUP;
-      fireGameOver();
       flash(MESSAGES[winner]);
+      this.state = State.WAIT;
+
+      setTimeout(() => {
+        fireGameOver();
+        this.state = State.SETUP;
+      }, 1000);
     }
   },
 
