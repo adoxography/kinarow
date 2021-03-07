@@ -45,7 +45,11 @@
         x-model.number="width"
         @focus="$event.target.select()"
       >
-      <span>x</span>
+      <div class="field__arrows">
+        <span @click="width++" class="arrow arrow--up"></span>
+        <span @click="width--" class="arrow arrow--down"></span>
+      </div>
+      <span class="field__filltext">x</span>
       <input
         type="number"
         class="field__input field__input--number"
@@ -53,6 +57,10 @@
         x-model.number="height"
         @focus="$event.target.select()"
       >
+      <div class="field__arrows">
+        <span @click="height++" class="arrow arrow--up"></span>
+        <span @click="height--" class="arrow arrow--down"></span>
+      </div>
     </div>
 
     <div class="field">
@@ -62,7 +70,14 @@
         x-model.number="k"
         :disabled="state !== State.SETUP"
         @focus="$event.target.select()"
-      > to win
+      >
+      <div class="field__arrows">
+        <span @click="k++" class="arrow arrow--up"></span>
+        <span @click="k--" class="arrow arrow--down"></span>
+      </div>
+      <span class="field__filltext">
+        to win
+      </span>
     </div>
 
     <div>
