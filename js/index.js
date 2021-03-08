@@ -109,6 +109,11 @@ window.Game = () => ({
     this.getMove();
   },
 
+  end() {
+    fireGameOver();
+    this.state = State.SETUP;
+  },
+
   async getMove() {
     const agent = this.agents[this.turn];
 
@@ -116,7 +121,15 @@ window.Game = () => ({
       this.state = State.PLAY;
     } else {
       this.state = State.WAIT;
-      const moveTime = Date.now() + 500;
+
+      const now = Date.now();
+      const moveTime = now + 500;
+      const timeoutTime = now + 5000;
+
+      const timeoutCall = setTimeout(() => {
+        flash(`${this.turn === 0 ? 'Player 1' : 'Player 2'} ran out of time. ${this.turn === 0 ? 'Player 2' : 'Player 1'} wins!`);
+        this.end();
+      }, 5000);
 
       const move = await agent.getMove({
         width: this.board.width,
@@ -128,9 +141,12 @@ window.Game = () => ({
 
       // Artificially insert a time delay if the move comes back
       // immediately so the bot feels like a person
-      setTimeout(() => {
-        this.makeMove(+move);
-      }, moveTime - Date.now());
+      if (Date.now() < timeoutTime) {
+        clearTimeout(timeoutCall);
+        setTimeout(() => {
+          this.makeMove(+move);
+        }, moveTime - Date.now());
+      }
     }
   },
 
@@ -159,10 +175,7 @@ window.Game = () => ({
       flash(MESSAGES[winner]);
       this.state = State.WAIT;
 
-      setTimeout(() => {
-        fireGameOver();
-        this.state = State.SETUP;
-      }, 1000);
+      setTimeout(() => this.end(), 1000);
     }
   },
 

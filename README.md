@@ -25,7 +25,7 @@ Accessed whenever the bot needs to make a move. Receives the following json-enco
 - `k` (Number): The number of cells in a row (in any direction) needed to win
 - `turn` (Number): If `0`, it is currently player 1's turn. `1` indicates that it is player 2's turn.
 
-The server must respond with the 0-based index of the cell it wishes to move to. Note that if the bot responds with an invalid move, it will immediately lose the game.
+The server must respond with the 0-based index of the cell it wishes to move to. Note that if the bot takes too long (>5 seconds) or responds with an invalid move, it will immediately lose the game.
 
 #### Example
 
