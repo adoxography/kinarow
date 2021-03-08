@@ -99,8 +99,6 @@ window.Game = () => ({
   update(width, height, k) {
     this.board.width = width;
     this.board.height = height;
-    this.board.reset();
-
     this.k = k;
   },
 
