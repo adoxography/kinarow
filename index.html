@@ -32,6 +32,7 @@
       $watch('width', () => update());
       $watch('height', () => update());
       $watch('k', () => update());
+      $watch('timePerMove', () => validateTimePerMove());
     "
     :class="{ 'controls--hidden': state === State.PLAY }"
     @submit.prevent="start"
@@ -103,11 +104,11 @@
     </div>
 
     <div>
-      <p class="drawer-control" :class="{'drawer-control--open': showAgents}">
+      <p class="drawer-control" :class="{'drawer-control--open': showMoreSettings}">
         <button
           type="button"
           class="drawer-control__btn btn btn--settings"
-          @click="showAgents = !showAgents"
+          @click="showMoreSettings = !showMoreSettings"
         >
           More settings
           <span class="drawer-control__arrow"></span>
@@ -116,7 +117,7 @@
 
       <div
         class="drawer"
-        :class="{'drawer--closed': !showAgents}"
+        :class="{'drawer--closed': !showMoreSettings}"
       >
         <template
           x-for="(agent, agentIndex) in agents"
@@ -135,6 +136,24 @@
             </div>
           </div>
         </template>
+        <div class="field">
+            <label
+                for="timePerMove"
+                class="field__filltext field__filltext--sm"
+            >
+                Time per move:
+            </label>
+            <input
+                id="timePerMove"
+                class="field__input field__input--number"
+                type="number"
+                x-model.number="timePerMove"
+                @focus="$event.target.select()"
+            />
+            <span class="field__filltext--sm">
+                s
+            </span>
+        </div>
       </div>
     </div>
 
@@ -155,7 +174,7 @@
     x-data="Game()"
     x-cloak
     @updategame.window="update($event.detail.width, $event.detail.height, $event.detail.k)"
-    @startgame.window="start($event.detail.agents)"
+    @startgame.window="start($event.detail.agents, $event.detail.timePerMove)"
   >
     <div
       class="board"

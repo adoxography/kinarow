@@ -8,8 +8,8 @@ const flash = message => window.dispatchEvent(new CustomEvent('flash', {
   detail: { message, time: 2000 }
 }));
 
-const fireStartGame = agents => window.dispatchEvent(new CustomEvent('startgame', {
-  detail: { agents }
+const fireStartGame = (agents, timePerMove) => window.dispatchEvent(new CustomEvent('startgame', {
+  detail: { agents, timePerMove }
 }));
 
 const fireGameOver = () => window.dispatchEvent(new CustomEvent('gameover'));
@@ -48,7 +48,8 @@ window.Control = () => ({
   height: 3,
   k: 3,
   agents: [Agent(), Agent()],
-  showAgents: false,
+  timePerMove: 5,
+  showMoreSettings: false,
 
   async start() {
     this.state = State.WAIT;
@@ -57,10 +58,11 @@ window.Control = () => ({
       await Promise.all(this.agents.map(agent => agent.connect({
         width: this.width,
         height: this.height,
-        k: this.k
+        k: this.k,
+        timePerMove: this.timePerMove
       })));
       this.state = State.PLAY;
-      fireStartGame(this.agents);
+      fireStartGame(this.agents, this.timePerMove);
     } catch (e) {
       flash(e.message);
       this.agents.map(agent => agent.reset());
@@ -69,7 +71,7 @@ window.Control = () => ({
   },
 
   appear() {
-    this.showAgents = this.agents.some(agent => !agent.isHuman());
+    this.showMoreSettings = this.agents.some(agent => !agent.isHuman());
     this.state = State.SETUP;
   },
 
@@ -83,6 +85,10 @@ window.Control = () => ({
       height: this.height,
       k: this.k
     });
+  },
+
+  validateTimePerMove() {
+    this.timePerMove = Math.max(1, this.timePerMove);
   }
 });
 
@@ -94,6 +100,7 @@ window.Game = () => ({
   board: Board(3, 3),
   k: 3,
   agents: [],
+  timePerMove: 0,
   turn: 0,
 
   update(width, height, k) {
@@ -102,8 +109,9 @@ window.Game = () => ({
     this.k = k;
   },
 
-  start(agents) {
+  start(agents, timePerMove) {
     this.agents = agents;
+    this.timePerMove = timePerMove;
     this.board.reset();
     this.turn = 0;
     this.getMove();
@@ -124,19 +132,20 @@ window.Game = () => ({
 
       const now = Date.now();
       const moveTime = now + 500;
-      const timeoutTime = now + 5000;
+      const timeoutTime = now + this.timePerMove * 1000;
 
       const timeoutCall = setTimeout(() => {
         flash(`${this.turn === 0 ? 'Player 1' : 'Player 2'} ran out of time. ${this.turn === 0 ? 'Player 2' : 'Player 1'} wins!`);
         this.end();
-      }, 5000);
+      }, this.timePerMove * 1000);
 
       const move = await agent.getMove({
         width: this.board.width,
         height: this.board.height,
         cells: this.board.cells,
         k: this.k,
-        turn: this.turn
+        turn: this.turn,
+        timePerMove: this.timePerMove
       });
 
       // Artificially insert a time delay if the move comes back

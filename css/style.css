@@ -127,6 +127,10 @@ p {
   margin-right: 0.3em;
 }
 
+.field__filltext--sm {
+  font-size: 0.75rem;
+}
+
 .field__input {
   padding: 0.25em 0.5em;
   border-radius: 0.25rem;
@@ -145,6 +149,10 @@ p {
   font-size: 1.5rem;
   width: 2em;
   -moz-appearance: textfield;
+}
+
+.drawer .field__input--number {
+  font-size: 0.75rem;
 }
 
 .field__input--number::-webkit-outer-spin-button,
@@ -409,7 +417,7 @@ p {
 }
 
 .drawer {
-  height: 4rem;
+  height: 5rem;
   transition: height 300ms ease-in-out;
   overflow-y: hidden;
 }

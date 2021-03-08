@@ -13,6 +13,7 @@ Accessed just before the game begins, to verify that the bot is online and is ab
 - `width` (Number): The number of columns in the board
 - `height` (Number): The number of rows in the board
 - `k` (Number): The number of cells in a row (in any direction) needed to win
+- `timePerMove` (Number): The amount of time (in seconds) the bot will have to make each move
 
 The server may respond with a `200` status code if it is willing to play with the provided settings, or a `418` status to indicate that it will not play.
 
@@ -23,9 +24,10 @@ Accessed whenever the bot needs to make a move. Receives the following json-enco
 - `height` (Number): The number of rows in the board
 - `cells` (Array): A flat array of size `width`×`height`, which are the rows of the grid concatenated together. `null` indicates that a cell is empty; `0` indicates that a cell is occupied by player 1, and `1` indicates that a cell is occupied by player 2.
 - `k` (Number): The number of cells in a row (in any direction) needed to win
+- `timePerMove` (Number): The amount of time (in seconds) the bot will have to make its move. Note that this is the time when the response must be **received** by the game, not when the server sends the response.
 - `turn` (Number): If `0`, it is currently player 1's turn. `1` indicates that it is player 2's turn.
 
-The server must respond with the 0-based index of the cell it wishes to move to. Note that if the bot takes too long (>5 seconds) or responds with an invalid move, it will immediately lose the game.
+The server must respond with the 0-based index of the cell it wishes to move to. Note that if the bot takes too long or responds with an invalid move, it will immediately lose the game.
 
 #### Example
 
@@ -44,6 +46,7 @@ The parameters sent to `/move` would be:
   "height": 3,
   "cells": [0, null, 0, 0, 1, 0, 1, null, null, 1, null, 1],
   "k": 3,
+  "timePerMove": 3,
   "turn": 0
 }
 ```
