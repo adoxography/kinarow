@@ -1,3 +1,10 @@
+class ConnectionError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'ConnectionError';
+  }
+}
+
 const Agent = (url = '') => ({
   url,
   ready: false,
@@ -19,15 +26,28 @@ const Agent = (url = '') => ({
     return this.url.replace(/\/$/, '');
   },
 
-  async connect() {
+  async connect(params) {
+    // Build query string
+    const queryString = Object.keys(params)
+                              .filter(key => params.hasOwnProperty(key))
+                              .map(key => `${key}=${params[key]}`)
+                              .join('&');
+
     if (!this.isHuman()) {
       try {
-        const response = await fetch(`${this.cleanUrl}/status`);
-        if (response.status !== 200) {
-          throw new Error('Bad status');
+        const response = await fetch(`${this.cleanUrl}/status?${queryString}`);
+
+        if (response.status === 418) {
+          throw new ConnectionError(`${this.url} does not support those parameters.`);
+        } else if (response.status !== 200) {
+          throw new ConnectionError(`Could not connect to ${this.url}`);
         }
       } catch (e) {
-        throw new Error(`Could not connect to ${this.url}`);
+        if (e.name === 'ConnectionError') {
+          throw e;
+        } else {
+          throw new Error(`Could not connect to ${this.url}`);
+        }
       }
     }
 

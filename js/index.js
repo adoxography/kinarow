@@ -54,7 +54,11 @@ window.Control = () => ({
     this.state = State.WAIT;
 
     try {
-      await Promise.all(this.agents.map(agent => agent.connect()));
+      await Promise.all(this.agents.map(agent => agent.connect({
+        width: this.width,
+        height: this.height,
+        k: this.k
+      })));
       this.state = State.PLAY;
       fireStartGame(this.agents);
     } catch (e) {
