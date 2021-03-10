@@ -34,7 +34,7 @@
       $watch('k', () => update());
       $watch('timePerMove', () => validateTimePerMove());
     "
-    :class="{ 'controls--hidden': state === State.PLAY }"
+    :class="{ 'controls--hidden': state === PLAY }"
     @submit.prevent="start"
     @gameover.window="appear"
   >
@@ -42,7 +42,7 @@
       <input
         type="number"
         class="field__input field__input--number"
-        :disabled="state !== State.SETUP"
+        :disabled="state !== SETUP"
         x-model.number="width"
         @focus="$event.target.select()"
       >
@@ -61,7 +61,7 @@
       <input
         type="number"
         class="field__input field__input--number"
-        :disabled="state !== State.SETUP"
+        :disabled="state !== SETUP"
         x-model.number="height"
         @focus="$event.target.select()"
       >
@@ -83,7 +83,7 @@
         type="number"
         class="field__input field__input--number"
         x-model.number="k"
-        :disabled="state !== State.SETUP"
+        :disabled="state !== SETUP"
         @focus="$event.target.select()"
       >
       <div class="field__arrows">
@@ -132,7 +132,7 @@
               @change="agent.url = $event.target.value; agent.ready = false;"
             >
             <div class="field__spinner">
-              <div class="loader" x-show="state === State.WAIT && !agent.ready"></div>
+              <div class="loader" x-show="state === WAIT && !agent.ready"></div>
             </div>
           </div>
         </template>
@@ -161,7 +161,7 @@
       <button
         class="btn btn--start"
         type="submit"
-        :disabled="state !== State.SETUP"
+        :disabled="state !== SETUP"
       >
         Start
       </button>
@@ -178,7 +178,7 @@
   >
     <div
       class="board"
-      :class="{ 'board--started': state === State.PLAY || state == State.WAIT }"
+      :class="{ 'board--started': state === PLAY || state == WAIT }"
       :style="`--columns: ${board.width}; --rows: ${board.height};`"
     >
       <template
@@ -189,7 +189,7 @@
           class="board__cell"
           :class="{
             'board__cell--empty': board.getCell(n-1) === null || board.getCell(n-1) === undefined,
-            'board__cell--active': state === State.PLAY && board.getCell(n-1) === null,
+            'board__cell--active': state === PLAY && board.getCell(n-1) === null,
             'board__cell--p1': board.getCell(n-1) === 0,
             'board__cell--p2': board.getCell(n-1) === 1
           }"

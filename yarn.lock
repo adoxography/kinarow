@@ -3957,7 +3957,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-node@npm:^0.3.4":
+"eslint-import-resolver-node@npm:*, eslint-import-resolver-node@npm:^0.3.4":
   version: 0.3.4
   resolution: "eslint-import-resolver-node@npm:0.3.4"
   dependencies:
@@ -5600,6 +5600,7 @@ __metadata:
     autoprefixer: ^10.2.5
     eslint: ^7.21.0
     eslint-config-airbnb-base: ^14.2.1
+    eslint-module-utils: ^2.6.0
     eslint-plugin-import: ^2.22.1
     lodash: ^4.17.21
     parcel: ^2.0.0-nightly.618
