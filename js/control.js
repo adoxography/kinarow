@@ -9,7 +9,7 @@ const Control = () => ({
   k: 3,
   agents: [Agent(), Agent()],
   timePerMove: 5,
-  showMoreSettings: false,
+  showBotSettings: false,
 
   async start() {
     this.state = WAIT;
@@ -31,7 +31,7 @@ const Control = () => ({
   },
 
   appear() {
-    this.showMoreSettings = this.agents.some(agent => !agent.isHuman());
+    this.showBotSettings = this.agents.some(agent => !agent.isHuman());
     this.state = SETUP;
   },
 

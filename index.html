@@ -104,20 +104,20 @@
     </div>
 
     <div>
-      <p class="drawer-control" :class="{'drawer-control--open': showMoreSettings}">
+      <p class="drawer-control" :class="{'drawer-control--open': showBotSettings}">
         <button
           type="button"
           class="drawer-control__btn btn btn--settings"
-          @click="showMoreSettings = !showMoreSettings"
+          @click="showBotSettings = !showBotSettings"
         >
-          More settings
+          Bot settings
           <span class="drawer-control__arrow"></span>
         </button>
       </p>
 
       <div
         class="drawer"
-        :class="{'drawer--closed': !showMoreSettings}"
+        :class="{'drawer--closed': !showBotSettings}"
       >
         <template
           x-for="(agent, agentIndex) in agents"
