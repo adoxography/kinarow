@@ -190,8 +190,8 @@
           :class="{
             'board__cell--empty': board.getCell(n-1) === null || board.getCell(n-1) === undefined,
             'board__cell--active': state === PLAY && board.getCell(n-1) === null,
-            'board__cell--p1': board.getCell(n-1) === 0,
-            'board__cell--p2': board.getCell(n-1) === 1
+            'board__cell--p1': board.getCell(n-1) === PLAYER_1,
+            'board__cell--p2': board.getCell(n-1) === PLAYER_2
           }"
           @click="handleCellClicked(n-1)"
           :x-ref="`cell-${n-1}`"

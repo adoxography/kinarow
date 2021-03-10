@@ -55,7 +55,7 @@ const Game = () => ({
       const timeoutTime = now + this.timePerMove * 1000;
 
       const timeoutCall = setTimeout(() => {
-        flash(`${this.turn === 0 ? 'Player 1' : 'Player 2'} ran out of time. ${this.turn === 0 ? 'Player 2' : 'Player 1'} wins!`);
+        flash(`${this.turn === PLAYER_1 ? 'Player 1' : 'Player 2'} ran out of time. ${this.turn === PLAYER_1 ? 'Player 2' : 'Player 1'} wins!`);
         this.end();
       }, this.timePerMove * 1000);
 
@@ -89,7 +89,7 @@ const Game = () => ({
     // Lose immediately if the move is illegal
     if (cellIndex < 0 || cellIndex >= this.board.length || this.board.getCell(cellIndex) !== null) {
       this.state = SETUP;
-      flash(`${this.turn === 0 ? 'Player 1' : 'Player 2'} made an illegal move; ${this.turn === 0 ? 'Player 2' : 'Player 1'} wins!`);
+      flash(`${this.turn === PLAYER_1 ? 'Player 1' : 'Player 2'} made an illegal move; ${this.turn === PLAYER_1 ? 'Player 2' : 'Player 1'} wins!`);
       return;
     }
 
@@ -117,7 +117,7 @@ const Game = () => ({
 
         const unique = slice.filter((v, i, s) => s.indexOf(v) === i);
         if (unique.length === 1 && unique[0] !== null) {
-          return unique[0] === 0 ? PLAYER_1 : PLAYER_2;
+          return unique[0];
         }
       }
     }
