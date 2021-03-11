@@ -1,19 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 :root {
-  --ff-sans: Montserrat, Arial, Helvetica, sans-serif;
-
-  --clr-primary: #3B82F6;
-  --clr-primary-light: #DBEAFE;
-  --clr-secondary: #6EE7B7;
-  --clr-secondary-light: #D1FAE5;
-  --clr-notification: #FEF9C3;
-
-  --clr-white: #F8FAFC;
-  --clr-gray-light: #F1F5F9;
-  --clr-gray: #E2E8F0;
-  --clr-gray-dark: #CBD5E1;
-  --clr-black: #1E293B;
+  --ff-sans: "Montserrat", arial, helvetica, sans-serif;
+  --clr-primary: #3b82f6;
+  --clr-primary-light: #dbeafe;
+  --clr-secondary: #6ee7b7;
+  --clr-secondary-light: #d1fae5;
+  --clr-notification: #fef9c3;
+  --clr-white: #f8fafc;
+  --clr-gray-light: #f1f5f9;
+  --clr-gray: #e2e8f0;
+  --clr-gray-dark: #cbd5e1;
+  --clr-black: #1e293b;
 }
 
 html {
@@ -25,10 +23,11 @@ html {
 }
 
 [x-cloak] {
-    display: none !important;
+  display: none !important;
 }
 
-body, button {
+body,
+button {
   font-family: var(--ff-sans);
 }
 
@@ -151,14 +150,14 @@ p {
   -moz-appearance: textfield;
 }
 
-.drawer .field__input--number {
-  font-size: 0.75rem;
-}
-
 .field__input--number::-webkit-outer-spin-button,
 .field__input--number::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.drawer .field__input--number {
+  font-size: 0.75rem;
 }
 
 .field__input--url {
@@ -169,7 +168,6 @@ p {
 .field__spinner {
   width: 1em;
   height: 1em;
-
   align-self: center;
   position: relative;
 }
@@ -249,7 +247,7 @@ p {
   background-color: var(--clr-gray-light);
   border-radius: 1rem;
   box-shadow: none;
-  transition:background-color 150ms ease-in-out, box-shadow 150ms ease-in-out, transform 300ms ease-in-out;
+  transition: background-color 150ms ease-in-out, box-shadow 150ms ease-in-out, transform 300ms ease-in-out;
   transform: scale(1);
   -webkit-tap-highlight-color: transparent;
 }
@@ -270,7 +268,8 @@ p {
   background: var(--clr-gray-light);
 }
 
-.board__cell--p1, .board__cell--p2 {
+.board__cell--p1,
+.board__cell--p2 {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
@@ -307,15 +306,16 @@ p {
   color: #fffe;
   letter-spacing: 2px;
   font-size: 1.5rem;
-  background-image: linear-gradient(
-    105deg,
-    var(--clr-secondary),
-    var(--clr-primary),
-    var(--clr-secondary),
-    var(--clr-primary),
-    var(--clr-secondary),
-    var(--clr-primary)
-  );
+  background-image:
+    linear-gradient(
+      105deg,
+      var(--clr-secondary),
+      var(--clr-primary),
+      var(--clr-secondary),
+      var(--clr-primary),
+      var(--clr-secondary),
+      var(--clr-primary)
+    );
   background-size: 600%;
   background-position: 25%;
   -webkit-tap-highlight-color: transparent;
@@ -333,21 +333,20 @@ p {
   opacity: 0.9;
 }
 
+.btn:hover,
+.btn:focus {
+  outline: none;
+}
+
 .btn:disabled,
 .btn:hover:disabled {
   background-color: var(--clr-gray-dark);
   cursor: default;
 }
 
-.btn:hover,
-.btn:focus {
-  outline: none;
-}
-
 .btn--start:hover,
 .btn--start:focus {
   transform: scale(1.1);
-
   animation-name: slide;
   animation-iteration-count: infinite;
   animation-duration: 2s;
@@ -363,7 +362,7 @@ p {
   from {
     background-position: 25%;
   }
-  
+
   to {
     background-position: 75%;
   }
@@ -439,7 +438,7 @@ p {
   position: absolute;
   top: 0;
   left: 0;
-  animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2s infinite ease-in-out;
 }
 
 .loader::before {
@@ -448,13 +447,16 @@ p {
 
 .loader::after {
   background-color: var(--clr-secondary);
-  animation-delay: -1.0s;
+  animation-delay: -1s;
 }
 
 @keyframes sk-bounce {
-  0%, 100% { 
+  0%,
+  100% {
     transform: scale(0);
-  } 50% { 
+  }
+
+  50% {
     transform: scale(1);
   }
 }
