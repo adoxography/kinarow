@@ -129,7 +129,7 @@
               class="field__input field__input--url"
               :placeholder="`Player ${agentIndex+1} URL`"
               :value="agent.url"
-              @change="agent.url = $event.target.value; agent.ready = false;"
+              @input="agent.url = $event.target.value; agent.ready = false;"
             >
             <div class="field__spinner">
               <div class="loader" x-show="state === WAIT && !agent.ready"></div>
