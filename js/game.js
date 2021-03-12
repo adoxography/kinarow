@@ -25,6 +25,7 @@ const Game = () => ({
   agents: [],
   timePerMove: 0,
   turn: 0,
+  thinking: false,
 
   /**
    * Updates the internal settings of the game. Does nothing if the game is not
@@ -95,10 +96,12 @@ const Game = () => ({
     const now = Date.now();
     const moveTime = now + 500;
     const timeoutTime = now + this.timePerMove * 1000;
+    this.thinking = true;
 
     // Set up a timout function that will execute if the bot's move doesn't
     // come back in time.
     const timeoutCall = setTimeout(() => {
+      this.thinking = false;
       flash(`${this.turn === PLAYER_1 ? 'Player 1' : 'Player 2'} ran out of time. ${this.turn === PLAYER_1 ? 'Player 2' : 'Player 1'} wins!`);
       this.end();
     }, this.timePerMove * 1000);
@@ -119,6 +122,7 @@ const Game = () => ({
       // Artificially insert a time delay if the move comes back immediately so
       // the bot feels like a person
       setTimeout(() => {
+        this.thinking = false;
         this.makeMove(+move);
       }, moveTime - Date.now());
     }
