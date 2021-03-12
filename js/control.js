@@ -40,6 +40,10 @@ const Control = () => ({
    * Displays the control panel and resets it
    */
   appear() {
+    for (const agent of this.agents) {
+      agent.ready = false;
+    }
+
     this.showBotSettings = this.agents.some(agent => !agent.isHuman());
     this.state = SETUP;
   },
