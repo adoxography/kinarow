@@ -5,7 +5,7 @@ This is an implementation of an [m, n, k-game](https://en.wikipedia.org/wiki/M,n
 Just set a width, height, and number to win, and hit start! If you would like to play against a bot, put their URL into the **Player 1** or **Player 2** fields. (More on bots below.) If you'd rather play against yourself or someone next to you, just leave those fields blank.
 
 ## Creating a bot player
-A bot needs to exist as a publicly available web server that responds to two routes, `/status` and `/move`. An example bot built on [REPL.it](https://repl.it) using node/express can be found [here](https://repl.it/@adoxography/KIRA).
+A bot needs to exist as a publicly available web server that responds to two routes, `/status` and `/move`. An example bot built on [REPL.it](https://repl.it) using Ruby/Sinatra can be found [here](https://repl.it/@adoxography/KIRA).
 
 ### `GET /status`
 Accessed just before the game begins, to verify that the bot is online and is able to play with the current settings. Receives the following parameters in its query string:
