@@ -106,25 +106,31 @@ const Game = () => ({
       this.end();
     }, this.timePerMove * 1000);
 
-    const move = await agent.getMove({
-      width: this.board.width,
-      height: this.board.height,
-      cells: this.board.cells,
-      k: this.k,
-      turn: this.turn,
-      timePerMove: this.timePerMove
-    });
+    try {
+      const move = await agent.getMove({
+        width: this.board.width,
+        height: this.board.height,
+        cells: this.board.cells,
+        k: this.k,
+        turn: this.turn,
+        timePerMove: this.timePerMove
+      });
 
-    if (Date.now() < timeoutTime) {
-      // We got a move - no need to time the game out anymore.
+      if (Date.now() < timeoutTime) {
+        // We got a move - no need to time the game out anymore.
+        clearTimeout(timeoutCall);
+
+        // Artificially insert a time delay if the move comes back immediately so
+        // the bot feels like a person
+        setTimeout(() => {
+          this.thinking = false;
+          this.makeMove(+move);
+        }, moveTime - Date.now());
+      }
+    } catch (e) {
       clearTimeout(timeoutCall);
-
-      // Artificially insert a time delay if the move comes back immediately so
-      // the bot feels like a person
-      setTimeout(() => {
-        this.thinking = false;
-        this.makeMove(+move);
-      }, moveTime - Date.now());
+      this.end();
+      flash(`There was an error getting a move from ${this.turn === PLAYER_1 ? 'Player 1' : 'Player 2'}`);
     }
   },
 
@@ -148,7 +154,7 @@ const Game = () => ({
   makeMove(cellIndex) {
     // Lose immediately if the move is illegal
     if (cellIndex < 0 || cellIndex >= this.board.length || this.board.getCell(cellIndex) !== null) {
-      this.state = SETUP;
+      this.end();
       flash(`${this.turn === PLAYER_1 ? 'Player 1' : 'Player 2'} made an illegal move; ${this.turn === PLAYER_1 ? 'Player 2' : 'Player 1'} wins!`);
       return;
     }
