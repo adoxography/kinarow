@@ -104,7 +104,7 @@ const Game = () => ({
       this.thinking = false;
       flash(`${this.turn === PLAYER_1 ? 'Player 1' : 'Player 2'} ran out of time. ${this.turn === PLAYER_1 ? 'Player 2' : 'Player 1'} wins!`);
       this.end();
-    }, this.timePerMove * 1000);
+    }, this.timePerMove * 1000 + 500);
 
     try {
       const move = await agent.getMove({
